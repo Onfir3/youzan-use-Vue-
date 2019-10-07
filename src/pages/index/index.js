@@ -7,8 +7,8 @@ import url from 'js/api.js'
 // import Foot from 'components/Foot.vue'
 // import Swipe from 'components/Swipe.vue'
 
-// import { InfiniteScroll } from 'mint-ui'
-// Vue.use(InfiniteScroll)
+import { InfiniteScroll } from 'mint-ui'
+Vue.use(InfiniteScroll)
 
 // new Vue({
 //   el: '.vue-el',
@@ -59,14 +59,22 @@ import url from 'js/api.js'
 let app = new Vue({
     el: '#app',
     data: {
-        lists: ""
+        lists: null, //或""
+        pageNum: 1,
+        loading: false,
+        allLoaded: false
     },
     created () {
-        axios.get(url.hotLists, {
-            pageNum: 1,
-            pageSize: 6
-        }).then(res => {
-            this.lists = res.data.lists
-        })
+        this.getLists()
+    },
+    methods: {
+        getLists(){
+            axios.get(url.hotLists, {
+                pageNum: this.pageNum,
+                pageSize: 6
+            }).then(res => {
+                this.lists = res.data.lists
+            })
+        }
     }
 })
