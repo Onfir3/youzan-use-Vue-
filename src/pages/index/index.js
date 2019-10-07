@@ -51,9 +51,7 @@ let app = new Vue({
             })
         },
         getBanner(){
-            axios.get(url.banner,{
-
-            }).then(res => {
+            axios.get(url.banner).then(res => {
                 this.bannerLists = res.data.lists
             })
         }
