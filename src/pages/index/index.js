@@ -5,56 +5,12 @@ import Vue from 'vue'
 import axios from 'axios'
 import url from 'js/api.js'
 import Foot from 'components/Foot.vue'
-// import Swipe from 'components/Swipe.vue'
+import Swipe from 'components/Swipe.vue'
 
 import { InfiniteScroll } from 'mint-ui'
 Vue.use(InfiniteScroll)
 
-// new Vue({
-//   el: '.vue-el',
-//   data: {
-//     pageNum: 1,
-//     pageSize: 6,
-//     lists: null,
-//     loading: false,
-//     allLoaded: false,
-//     bannerLists: null
-//   },
-//   created() {
-//     this.getLists()
-//     this.getBanner()
-//   },
-//   methods: {
-//     getLists() {
-//       if (this.allLoaded) return
-//       this.loading = true
-//       axios.post(url.hotLists, {
-//         pageNum: this.pageNum,
-//         pageSize: this.pageSize
-//       }).then(res => {
-//         let curLists = res.data.lists
-//         if(curLists.length < this.pageSize) {
-//           this.allLoaded = true
-//         }
-//         if (this.lists) {
-//           this.lists = this.lists.concat(curLists)
-//         } else {
-//           this.lists = curLists
-//         }
-//         this.loading = false
-//       })
-//     },
-//     getBanner() {
-//       axios.get(url.banner).then(res => {
-//         this.bannerLists = res.data.lists
-//       })
-//     }
-//   },
-//   components: {
-//     Foot,
-//     Swipe
-//   }
-// })
+
 
 let app = new Vue({
     el: '#app',
@@ -63,10 +19,12 @@ let app = new Vue({
         pageNum: 1,
         pageSize: 6,
         loading: false,   //函数节流
-        allLoaded: false   //判断是否完全加载完毕
+        allLoaded: false,   //判断是否完全加载完毕
+        bannerLists: null
     },
     created () {
         this.getLists()
+        this.getBanner()
     },
     methods: {
         getLists(){
@@ -91,9 +49,17 @@ let app = new Vue({
                 this.loading = false //请求完成以后可以再次请求
                 this.pageNum++
             })
+        },
+        getBanner(){
+            axios.get(url.banner,{
+
+            }).then(res => {
+                this.bannerLists = res.data.lists
+            })
         }
     },
     components: {
-        Foot
+        Foot,
+        Swipe
     }
 })
