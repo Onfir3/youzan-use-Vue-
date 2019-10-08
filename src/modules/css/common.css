@@ -93,7 +93,8 @@ html {
 
 ol,
 ul {
-  list-style: none
+  list-style: none;
+  overflow-y: auto;
 }
 
 table {
