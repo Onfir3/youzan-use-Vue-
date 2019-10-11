@@ -59,7 +59,7 @@ new Vue({
             
         },
         move() {
-            if(document.documentElement.scrollTop > 100){   //当出现document.body.scrollTop一直是0的情况
+            if(document.documentElement.scrollTop > 200){   //当出现document.body.scrollTop一直是0的情况
                 this.isShow = true                          //就是DTD的问题，页面指定了DTD，即指定了DOCTYPE时，使用document.documentElement.scrollTop。
                 console.log("scrollTop")                    //页面没有DTD，即没指定DOCTYPE时，使用document.body.scrollTop。
             } else {
